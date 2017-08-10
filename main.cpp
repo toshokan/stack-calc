@@ -2,6 +2,7 @@
 #include <stack>
 #include <vector>
 #include <cstring>
+#include <sstream>
 
 #include "registers.h"
 
@@ -15,41 +16,22 @@ int main(int argc, char** argv){
 			std::cout << "that was a number: " << std::isdigit(b[0]) << std::endl;
 		}
 	if (argc > 1 && strcmp(argv[1], "-e") == 0){
-		std::string fexp;
-		std::cout << "Enter a full expression to evaluate in RPN: ";
-		std::getline(std::cin, fexp);
-		bool in_num = false;;
+		std::string s;
 		std::string b;
-		for(int i = 0; i < fexp.size(); i++){
-			if (std::isdigit(fexp[i]) || fexp[i] == '.'){
-				in_num = true;
-				b.push_back(fexp[i]);
-			} else {
-				if (in_num){
-					in_num = false;
-					registers.push(stod(b));
-					b.clear();
-				}
-				switch(fexp[i]) {
-					case '+':
-						registers.apply(std::plus<double>());
-						break;
-					case '-':
-						registers.apply(std::minus<double>());
-						break;
-					case '*':
-						registers.apply(std::multiplies<double>());
-						break;
-					case '/':
-						registers.apply(std::divides<double>());
-						break;
-				}
-			}
+		std::vector<std::string> v;
+		std::cout << "Enter s-expression: ";
+		std::getline(std::cin, s);
+		std::stringstream ss(s);
+		while (ss >> b){
+			v.push_back(b);
 		}
-		if (in_num){
-			in_num = false;
-			registers.push(stod(b));
-			b.clear();
+		for(auto &val : v){
+			try{
+				auto n = stod(val);
+				registers.push(n);
+			} catch (...) {
+				registers.apply(registers.stoo(val));
+			}
 		}
 		registers.print();
 	}
@@ -60,20 +42,7 @@ int main(int argc, char** argv){
 		if (buff.size() != 1 || std::isdigit(buff[0])){
 			registers.push(stod(buff));
 		} else {
-			switch(buff[0]) {
-				case '+':
-					registers.apply(std::plus<double>());
-					break;
-				case '-':
-					registers.apply(std::minus<double>());
-					break;
-				case '*':
-					registers.apply(std::multiplies<double>());
-					break;
-				case '/':
-					registers.apply(std::divides<double>());
-					break;
-			}
+			registers.apply(registers.stoo(buff));
 		}
 		registers.print();
 	}
