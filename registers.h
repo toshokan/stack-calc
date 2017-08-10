@@ -110,8 +110,10 @@ void Registers<T>::apply_binary(Operation o){
 				break;
 			case Multiply:
 				this->push(y * x);
+				break;
 			case Divide:
 				this->push(y / x);
+				break;
 		}
 	}
 }
