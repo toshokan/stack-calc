@@ -34,9 +34,12 @@ int main(int argc, char** argv){
 	while (true) {
 		std::cout << "Enter a number or operator: ";
 		std::cin >> buff;
-		if (buff.size() != 1 || std::isdigit(buff[0])){
+		if (std::isdigit(buff[0])){
 			registers.push(stod(buff));
 		} else {
+			if(buff == "quit" || buff == "exit"){
+				return EXIT_SUCCESS;
+			}
 			registers.apply(registers.stoo(buff));
 		}
 		std::cout << std::endl;
