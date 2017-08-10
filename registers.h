@@ -42,7 +42,7 @@ void Registers<T>::apply(F func){
 		y = this->r.top();
 		this->r.pop();
 	}
-	this->r.push(func(x,y));
+	this->r.push(func(y,x));
 }
 
 template <typename T>
