@@ -21,6 +21,7 @@ enum Operation {
 	Tan,
 	NamedConstPi,
 	NamedConstE,
+	MetaDelete,
 	MetaClear,
 };
 
@@ -78,6 +79,7 @@ void Registers<T>::apply(Operation o){
 		case NamedConstE:
 			this->push_named(o);
 			break;
+		case MetaDelete:
 		case MetaClear:
 			this->apply_meta(o);
 			break;
@@ -156,10 +158,16 @@ void Registers<T>::push_named(Operation o){
 template <typename T>
 void Registers<T>::apply_meta(Operation o){
 	switch(o){
+		case MetaDelete:
+			if(this->r.size() >= 1){
+				this->r.pop();
+			}
+			break;
 		case MetaClear:
 			while(!this->r.empty()){
 				this->r.pop();
 			}
+			break;
 	}
 }
 			
@@ -179,6 +187,7 @@ Operation Registers<T>::stoo(std::string s) const{
 		if(s == "tan") return Tan;
 		if(s == "pi") return NamedConstPi;
 		if(s == "e") return NamedConstE;
+		if(s == "delete") return MetaDelete;
 		if(s == "clear") return MetaClear;
 }
 
