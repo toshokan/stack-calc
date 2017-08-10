@@ -8,13 +8,6 @@
 
 int main(int argc, char** argv){
 	Registers<double> registers;
-	registers.print();
-		while(false){
-			std::string b;
-			std::cout << "enter a number ";
-			std::getline(std::cin, b);
-			std::cout << "that was a number: " << std::isdigit(b[0]) << std::endl;
-		}
 	if (argc > 1 && strcmp(argv[1], "-e") == 0){
 		std::string s;
 		std::string b;
@@ -33,18 +26,22 @@ int main(int argc, char** argv){
 				registers.apply(registers.stoo(val));
 			}
 		}
+		std::cout << std::endl;
 		registers.print();
+		return EXIT_SUCCESS;
 	}
 	std::string buff;
 	while (true) {
-		std::cout << "Enter a number or operator" << std::endl;
+		std::cout << "Enter a number or operator: ";
 		std::cin >> buff;
 		if (buff.size() != 1 || std::isdigit(buff[0])){
 			registers.push(stod(buff));
 		} else {
 			registers.apply(registers.stoo(buff));
 		}
+		std::cout << std::endl;
 		registers.print();
 	}
+	return EXIT_SUCCESS;
 }
 
