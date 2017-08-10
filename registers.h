@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <cmath>
 
 enum Operation {
 	Plus,
@@ -77,9 +78,17 @@ void Registers<T>::apply_unary(Operation o){
 				this->push(x*x);
 				break;
 			case SquareRoot:
-				this->push(x);
+				this->push(sqrt(x));
 				break;
-				// TODO
+			case Sin:
+				this->push(sin(x));
+				break;
+			case Cos:
+				this->push(cos(x));
+				break;
+			case Tan:
+				this->push(tan(x));
+				break;
 		}
 	}
 }

@@ -19,7 +19,7 @@ int main(int argc, char** argv){
 		std::string s;
 		std::string b;
 		std::vector<std::string> v;
-		std::cout << "Enter s-expression: ";
+		std::cout << "Enter a full RPN expression to evaluate: ";
 		std::getline(std::cin, s);
 		std::stringstream ss(s);
 		while (ss >> b){
