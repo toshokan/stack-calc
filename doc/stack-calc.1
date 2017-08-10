@@ -1,0 +1,44 @@
+.TH STACK-CALC 1
+.SH NAME
+stack-calc \- A basic calculator interpreting Reverse Polish Notation
+.SH SYNOPSYS
+.B stack-calc
+[\fB\-e\fR][\fB\-\-expr\fR]
+.SH OPTIONS
+.TP
+.BR default
+Enters standard mode, where you can type numbers and operations one at a time and view the registers/stack change as you go like the HP calculators of old.
+.TP
+.BR \-e "," \-\-expr
+Enters "expression mode", where you can type a long sequence of RPN operations to apply all in one line.
+.SH REPL COMMANDS
+.TP
+.BR positive\ integer\ or\ decimal\ number
+Adds the number to the bottom register, pushing all other values up.
+.TP
+.BR + "," - "," * "," / "," ^
+Pops the values off the bottom two registers, performs the operation, and adds the result to the bottom register.
+.TP
+.BR neg
+Negates the value on the bottom register.
+.TP
+.BR sq
+Raises the value on the bottom register to the second power.
+.TP
+.BR sqrt
+Replaces the value on the bottom register with its square root.
+.TP
+.BR sin "," cos "," tan
+Applies the requested function (in radian mode) to the value in the bottom register.
+.TP
+.BR pi
+Adds the constant pi to the bottom register, pushing all other values up.
+.TP
+.BR e
+Adds the constant e to the bottom register, pushing all other values up.
+.TP
+.BR delete
+Removes the value on the bottom register, pulling all other values down.
+.TP
+.BR clear
+Clears all registers.
